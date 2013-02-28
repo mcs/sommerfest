@@ -1,0 +1,42 @@
+h1 {
+    color: green;
+}
+
+#mainBanner {
+    text-align: center;
+    border-bottom: blue solid thin;
+}
+#navigation {
+    float: left;
+    width: 200px;
+}
+
+#mainContent {
+    float: left;
+    position: static;
+    padding-left: 20px;
+    border-left: blue solid thin;
+}
+
+#mainFooter {
+    clear: both;
+    width: 100%;
+    border-top: blue solid thin;
+}
+
+table.plan > tbody > tr > td:first-child,
+table.plan > thead > tr > th:first-child {
+    font-weight: bold;
+}
+
+table.plan thead th {
+    text-align: center;
+}
+
+table.plan tbody td {
+    text-align: right;
+}
+
+.menge {
+    text-align: right;
+}

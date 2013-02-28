@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:body>
+    <ui:composition template="/template.xhtml">
+        <ui:define name="content">
+            <h2>#{bundle.admin_products}</h2>
+            Administration der Produkte
+
+            <h3>Vorhandene Produkte</h3>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Artikel</th>
+                    <th>Aktion</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Cocktailgläser</td>
+                    <td>
+                        <button class="btn btn-danger">#{bundle.delete}</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Havanna Club Rum</td>
+                    <td>
+                        <button class="btn btn-danger">#{bundle.delete}</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

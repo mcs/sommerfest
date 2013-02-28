@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+    <title>#{bundle.title}</title>
+    <h:outputStylesheet library="css" name="bootstrap.css"/>
+    <h:outputStylesheet library="css" name="style.css"/>
+</h:head>
+<!--@elvariable id="request" type="javax.servlet.http.HttpServletRequest"-->
+<h:body>
+    <div id="mainBanner">
+        <h1>#{bundle.title}</h1>
+    </div>
+    <div id="navigation">
+        <ul class="nav nav-list">
+            <li class="${request.requestURI.contains('index.xhtml') ? 'active' : ''}">
+                <h:link outcome="/index">
+                    <i class="icon-home"/> #{bundle.home}
+                </h:link>
+            </li>
+            <li class="${request.requestURI.contains('cocktailbar.xhtml') ? 'active' : ''}">
+                <h:link outcome="/cocktailbar.xhtml">
+                    <i class="icon-book"/> #{bundle.cocktailbar}
+                </h:link>
+            </li>
+            <li class="${request.requestURI.contains('rampe.xhtml') ? 'active' : ''}">
+                <h:link outcome="/rampe.xhtml">
+                    <i class="icon-pencil"/> #{bundle.rampe}
+                </h:link>
+            </li>
+            <li class="${request.requestURI.contains('admin/products.xhtml') ? 'active' : ''}">
+                <h:link outcome="/admin/products">
+                    <i class="icon-calendar"/> #{bundle.admin_products}
+                </h:link>
+            </li>
+        </ul>
+    </div>
+
+    <div id="mainContent">
+        <ui:insert name="content">Main content</ui:insert>
+    </div>
+
+    <div id="mainFooter">
+        (c) 2012 M. K.
+        <h:outputScript library="js/lib" name="angular.js"/>
+        <h:outputScript library="js/lib" name="jquery-1.8.3.min.js"/>
+        <h:outputScript library="js/lib" name="jquery-ui-1.9.2.custom.js"/>
+        <h:outputScript library="js/lib" name="bootstrap.js"/>
+        <h:outputScript library="js" name="javascript.js"/>
+        <script type="text/javascript">log("It works!");</script>
+    </div>
+</h:body>
+</html>
