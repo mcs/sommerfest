@@ -6,9 +6,57 @@
     <ui:composition template="./template.xhtml">
         <ui:define name="content">
             <h2>#{bundle.cocktailbar}</h2>
-            Seite für die Cocktailbar...
 
-            <h3>TODO: Infos zur Cocktailbar...</h3>
+            <form ng-controller="CocktailbarController">
+                <fieldset>
+                    <legend>Angeforderte Positionen</legend>
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Artikel</th>
+                            <th>#{bundle.amount}</th>
+                            <th>Aktion</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="order in orders">
+                            <td ng-bind="order.product.name"/>
+                            <td>
+                                {{order.amount}}
+                            </td>
+                            <td>
+                                <button class="btn btn-primary" ng-click="storno(order)">#{bundle.storno}</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </fieldset>
+                <fieldset>
+                    <legend>Materialliste</legend>
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Artikel</th>
+                            <th>#{bundle.amount}</th>
+                            <th>Aktion</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="product in products">
+                            <td ng-bind="product.name"/>
+                            <td>
+                                <button class="btn btn-danger" ng-click="decAmount(product)">-</button>
+                                {{product.amount}}
+                                <button class="btn btn-success" ng-click="incAmount(product)">+</button>
+                            </td>
+                            <td>
+                                <button class="btn btn-primary" ng-click="order(product)">#{bundle.order}</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </fieldset>
+            </form>
         </ui:define>
     </ui:composition>
 </h:body>

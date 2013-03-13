@@ -6,41 +6,33 @@
     <ui:composition template="./template.xhtml">
         <ui:define name="content">
             <h2>#{bundle.rampe}</h2>
-            Infos für Rampe...
-
-            <h3>Angeforderte Positionen</h3>
-            <table class="table table-bordered">
-                <thead>
-                <tr>
-                    <th>Artikel</th>
-                    <th>Menge</th>
-                    <th>Ziel</th>
-                    <th>Aktion</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>Cocktailgläser</td>
-                    <td>2</td>
-                    <td>Cocktailbar</td>
-                    <td>
-                        <button class="btn btn-primary">#{bundle.delivered}</button>
-                        <button class="btn btn-warning">#{bundle.lastItem}</button>
-                        <button class="btn btn-danger">#{bundle.outOfStock}</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Havanna Club Rum</td>
-                    <td>3</td>
-                    <td>Bar 2</td>
-                    <td>
-                        <button class="btn btn-primary">#{bundle.delivered}</button>
-                        <button class="btn btn-warning">#{bundle.lastItem}</button>
-                        <button class="btn btn-danger">#{bundle.outOfStock}</button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+            <form ng-controller="RampeController">
+                <fieldset>
+                    <legend>Angeforderte Positionen</legend>
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Artikel</th>
+                            <th>Menge</th>
+                            <th>Ziel</th>
+                            <th>Aktion</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="product in orderedProducts">
+                            <td ng-bind="product.name"/>
+                            <td ng-bind="product.amount"/>
+                            <td ng-bind="product.target"/>
+                            <td>
+                                <button class="btn btn-primary">#{bundle.delivered}</button>
+                                <button class="btn btn-warning">#{bundle.lastItem}</button>
+                                <button class="btn btn-danger">#{bundle.outOfStock}</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </fieldset>
+            </form>
         </ui:define>
     </ui:composition>
 </h:body>

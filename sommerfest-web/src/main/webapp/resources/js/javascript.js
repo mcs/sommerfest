@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 function log() {
     var args;
