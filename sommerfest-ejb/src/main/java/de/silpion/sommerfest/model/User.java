@@ -3,7 +3,6 @@ package de.silpion.sommerfest.model;
 import org.mindrot.jbcrypt.BCrypt;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.*;
 import java.io.Serializable;
 
 @Entity
@@ -12,8 +11,6 @@ import java.io.Serializable;
                 name = "findUserByUsername",
                 query = "SELECT u FROM User u WHERE u.username = :username")
 })
-@XmlRootElement(name = "user")
-@XmlAccessorType(XmlAccessType.FIELD)
 public class User implements Serializable {
 
     @Id
@@ -21,7 +18,6 @@ public class User implements Serializable {
     @Column(unique = true, nullable = false)
     private String username;
     @Column(nullable = false)
-    @XmlTransient
     private String passhash;
     private String sessionId;
 

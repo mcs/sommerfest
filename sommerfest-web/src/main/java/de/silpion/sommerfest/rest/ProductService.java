@@ -3,19 +3,21 @@ package de.silpion.sommerfest.rest;
 import de.silpion.sommerfest.model.Product;
 
 import javax.ejb.Stateless;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
-import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
 import java.util.ArrayList;
 import java.util.List;
+
+import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
 @Stateless
 @Path("/products")
 public class ProductService {
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(APPLICATION_JSON)
     public List<Product> query() {
         // TODO Fetch from repository
         List<Product> products = new ArrayList<Product>();
@@ -30,7 +32,7 @@ public class ProductService {
 
     @GET
     @Path("{productId}")
-    @Produces(MediaType.APPLICATION_JSON)
+    @Produces(APPLICATION_JSON)
     public Product get(@PathParam("productId") Long id) {
         // TODO Fetch from repository
         Product product = new Product();
