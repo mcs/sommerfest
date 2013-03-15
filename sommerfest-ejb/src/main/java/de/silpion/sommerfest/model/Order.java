@@ -1,13 +1,22 @@
 package de.silpion.sommerfest.model;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
+@Entity
+@Table(name = "ordering")
 public class Order implements Serializable {
+    @Id
+    @GeneratedValue
     private Long id;
+    @NotNull
     private int amount;
     private String target;
+    @Temporal(TemporalType.TIMESTAMP)
     private Date createdOn = new Date();
+    @ManyToOne
     private Product product;
 
     public Long getId() {

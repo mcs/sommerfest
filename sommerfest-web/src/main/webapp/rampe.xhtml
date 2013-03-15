@@ -19,10 +19,10 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="product in orderedProducts">
-                            <td ng-bind="product.name"/>
-                            <td ng-bind="product.amount"/>
-                            <td ng-bind="product.target"/>
+                        <tr ng-repeat="order in orders">
+                            <td ng-bind="order.product.name"/>
+                            <td ng-bind="order.amount"/>
+                            <td ng-bind="order.target"/>
                             <td>
                                 <button class="btn btn-primary">#{bundle.delivered}</button>
                                 <button class="btn btn-warning">#{bundle.lastItem}</button>

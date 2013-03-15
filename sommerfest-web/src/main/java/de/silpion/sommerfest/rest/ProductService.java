@@ -1,43 +1,72 @@
 package de.silpion.sommerfest.rest;
 
+import de.silpion.sommerfest.ejb.ProductBean;
 import de.silpion.sommerfest.model.Product;
 
-import javax.ejb.Stateless;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ejb.EJB;
+import javax.enterprise.context.ApplicationScoped;
+import javax.ws.rs.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
-@Stateless
+@ApplicationScoped
 @Path("/products")
 public class ProductService {
+
+    private static long NEXT_PRODUCT_ID = 1;
+    private static List<Product> products = new ArrayList<Product>();
+
+    static {
+        Product product = new Product();
+        product.setId(1L);
+        product.setName("Cocktailgläser");
+        products.add(product);
+
+        product = new Product();
+        product.setId(2L);
+        product.setName("Havanna Club Rum");
+        products.add(product);
+    }
+
+    @EJB
+    private ProductBean productBean;
 
     @GET
     @Produces(APPLICATION_JSON)
     public List<Product> query() {
-        // TODO Fetch from repository
-        List<Product> products = new ArrayList<Product>();
-        for (int i = 1; i <= 5; i++) {
-            Product product = new Product();
-            product.setId((long) i);
-            product.setName("Product #" + i);
-            products.add(product);
-        }
-        return products;
+        return productBean.findAll();
     }
 
-    @GET
+    @DELETE
     @Path("{productId}")
     @Produces(APPLICATION_JSON)
-    public Product get(@PathParam("productId") Long id) {
+    public Product delete(@PathParam("productId") long productId) {
+        productBean.deleteById(productId);
         // TODO Fetch from repository
-        Product product = new Product();
-        product.setId(id);
-        product.setName("Product #" + id);
+        Iterator<Product> it = products.iterator();
+        while (it.hasNext()) {
+            Product product = it.next();
+            if (product.getId() == productId) {
+                it.remove();
+                return product;
+            }
+        }
+        return null;
+    }
+
+    @POST
+    @Consumes(APPLICATION_JSON)
+    @Produces(APPLICATION_JSON)
+    public Product save(Product product) {
+        return productBean.save(product);
+    }
+
+    private Product persist(Product product) {
+        products.add(product);
+        product.setId(NEXT_PRODUCT_ID++);
         return product;
     }
 }

@@ -40,10 +40,28 @@ function CocktailbarController($scope, Product, Order) {
 CocktailbarController.$inject = ['$scope', 'Product', 'Order'];
 
 
-function RampeController($scope) {
-    $scope.orders = [
-        {name: "Cocktailgläser", amount: 2, target: "Cocktailbar"},
-        {name: "Havanna Club Rum", amount: 4, target: "Bar 1"}
-    ];
+function RampeController($scope, Order) {
+    $scope.orders = Order.query();
 }
-RampeController.$inject = ['$scope'];
+RampeController.$inject = ['$scope', 'Order'];
+
+
+function ProductManagementController($scope, Product) {
+    $scope.products = Product.query();
+    $scope.newProduct = new Product();
+
+    $scope.delete = function (product) {
+        Product.delete({productId: product.id}, function () {
+            $scope.products = Product.query();
+        });
+    };
+
+    $scope.create = function () {
+        Product.save($scope.newProduct, function () {
+            $scope.products = Product.query();
+        });
+        $scope.newProduct = "";
+    }
+}
+ProductManagementController.$inject = ['$scope', 'Product'];
+

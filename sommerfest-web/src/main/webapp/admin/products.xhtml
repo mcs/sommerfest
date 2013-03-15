@@ -9,28 +9,32 @@
             Administration der Produkte
 
             <h3>Vorhandene Produkte</h3>
-            <table class="table table-bordered">
-                <thead>
-                <tr>
-                    <th>Artikel</th>
-                    <th>Aktion</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>Cocktailgläser</td>
-                    <td>
-                        <button class="btn btn-danger">#{bundle.delete}</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Havanna Club Rum</td>
-                    <td>
-                        <button class="btn btn-danger">#{bundle.delete}</button>
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+
+            <form ng-controller="ProductManagementController">
+                <fieldset>
+                    <label for="newProduct">#{bundle.newProduct}:</label>
+                    <input id="newProduct" type="text" ng-model="newProduct.name"/>
+                    <button class="btn btn-success" ng-click="create()">#{bundle.save}</button>
+                </fieldset>
+                <fieldset>
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>#{bundle.article}</th>
+                            <th>#{bundle.action}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="product in products">
+                            <td ng-bind="product.name"></td>
+                            <td>
+                                <button class="btn btn-danger" ng-click="delete(product)">#{bundle.delete}</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </fieldset>
+            </form>
         </ui:define>
     </ui:composition>
 </h:body>
