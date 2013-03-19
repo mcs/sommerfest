@@ -1,7 +1,6 @@
 package de.silpion.sommerfest.ejb;
 
 import de.silpion.sommerfest.model.Order;
-import de.silpion.sommerfest.model.Product;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -14,22 +13,23 @@ public class OrderBean {
     @PersistenceContext
     EntityManager em;
 
-    public List<Order> findAll(String target) {
+    public List<Order> findByTarget(String target) {
         return em
-                .createQuery("SELECT o FROM Order o WHERE o.target = :target", Order.class)
+                .createNamedQuery("Order.findByTarget", Order.class)
                 .setParameter("target", target)
                 .getResultList();
     }
 
     public List<Order> findAll() {
         return em
-                .createQuery("SELECT o FROM Order o", Order.class)
+                .createNamedQuery("Order.findAll", Order.class)
                 .getResultList();
     }
 
-    public void deleteById(long productId) {
-        Product orderToDelete = em.find(Product.class, productId);
+    public Order deleteById(long orderId) {
+        Order orderToDelete = em.find(Order.class, orderId);
         em.remove(orderToDelete);
+        return orderToDelete;
     }
 
     public Order save(Order order) {

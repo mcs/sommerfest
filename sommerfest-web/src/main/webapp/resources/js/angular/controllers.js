@@ -19,16 +19,20 @@ function CocktailbarController($scope, Product, Order) {
     }
 
     $scope.order = function (product) {
+        // create new order based on the product
         var order = {
             product: angular.copy(product),
             amount: "" + product.amount,
             target: target
         };
+        // products don't have an amount, so delete it
         delete order.product.amount;
-        product.amount = 1;
+        // execute REST call
         order = Order.save(order, function () {
             $scope.orders = Order.query({target: target});
         });
+        // reset "view product"'s amount to 1
+        product.amount = 1;
     };
 
     $scope.storno = function (order) {

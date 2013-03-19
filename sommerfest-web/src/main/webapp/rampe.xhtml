@@ -15,14 +15,16 @@
                             <th>Artikel</th>
                             <th>Menge</th>
                             <th>Ziel</th>
+                            <th>Bestellzeit</th>
                             <th>Aktion</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="order in orders">
+                        <tr ng-repeat="order in orders | orderBy: 'createdOn'">
                             <td ng-bind="order.product.name"/>
                             <td ng-bind="order.amount"/>
                             <td ng-bind="order.target"/>
+                            <td ng-bind="order.createdOn | date: 'mediumTime'"/>
                             <td>
                                 <button class="btn btn-primary">#{bundle.delivered}</button>
                                 <button class="btn btn-warning">#{bundle.lastItem}</button>

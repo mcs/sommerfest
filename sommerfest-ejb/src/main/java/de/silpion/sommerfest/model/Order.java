@@ -7,6 +7,10 @@ import java.util.Date;
 
 @Entity
 @Table(name = "ordering")
+@NamedQueries({
+        @NamedQuery(name = "Order.findAll", query = "SELECT o FROM Order o"),
+        @NamedQuery(name = "Order.findByTarget", query = "SELECT o FROM Order o WHERE o.target = :target")
+})
 public class Order implements Serializable {
     @Id
     @GeneratedValue
