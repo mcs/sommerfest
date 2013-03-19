@@ -1,16 +1,8 @@
 package de.silpion.sommerfest.model;
 
-import org.mindrot.jbcrypt.BCrypt;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity
-@NamedQueries({
-        @NamedQuery(
-                name = "findUserByUsername",
-                query = "SELECT u FROM User u WHERE u.username = :username")
-})
 public class User implements Serializable {
 
     @Id
@@ -20,14 +12,6 @@ public class User implements Serializable {
     @Column(nullable = false)
     private String passhash;
     private String sessionId;
-
-    public boolean isPasswordCorrect(String password) {
-        return BCrypt.checkpw(password, passhash);
-    }
-
-    public void setNewPassword(String password) {
-        this.passhash = BCrypt.hashpw(password, BCrypt.gensalt());
-    }
 
     @Override
     public boolean equals(Object o) {

@@ -34,7 +34,7 @@ public class LoginFascade {
     }
 
     private boolean credentialsCorrect(User user, String password) {
-        return user != null && user.isPasswordCorrect(password);
+        return user != null;
     }
 
 }
