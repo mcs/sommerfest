@@ -16,6 +16,7 @@
                             <th>Artikel</th>
                             <th>#{bundle.amount}</th>
                             <th>Bestellzeit</th>
+                            <th>Status</th>
                             <th>Aktion</th>
                         </tr>
                         </thead>
@@ -26,6 +27,7 @@
                                 {{order.amount}}
                             </td>
                             <td ng-bind="order.createdOn | date: 'mediumTime'"/>
+                            <td ng-bind="order.state"/>
                             <td>
                                 <button class="btn btn-primary" ng-click="storno(order)">#{bundle.storno}</button>
                             </td>

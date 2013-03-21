@@ -9,9 +9,11 @@ import java.util.Date;
 @Table(name = "ordering")
 @NamedQueries({
         @NamedQuery(name = "Order.findAll", query = "SELECT o FROM Order o"),
-        @NamedQuery(name = "Order.findByTarget", query = "SELECT o FROM Order o WHERE o.target = :target")
+        @NamedQuery(name = "Order.findByTarget", query = "SELECT o FROM Order o WHERE o.target = :target"),
+        @NamedQuery(name = "Order.findByStatus", query = "SELECT o FROM Order o WHERE o.state = :status")
 })
 public class Order implements Serializable {
+
     @Id
     @GeneratedValue
     private Long id;
@@ -20,6 +22,8 @@ public class Order implements Serializable {
     private String target;
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdOn = new Date();
+    @Enumerated(EnumType.STRING)
+    private ProcessState state = ProcessState.ORDERED;
     @ManyToOne
     private Product product;
 
@@ -53,6 +57,14 @@ public class Order implements Serializable {
 
     public void setCreatedOn(Date createdOn) {
         this.createdOn = createdOn;
+    }
+
+    public ProcessState getState() {
+        return state;
+    }
+
+    public void setState(ProcessState state) {
+        this.state = state;
     }
 
     public Product getProduct() {

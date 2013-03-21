@@ -26,7 +26,7 @@
                             <td ng-bind="order.target"/>
                             <td ng-bind="order.createdOn | date: 'mediumTime'"/>
                             <td>
-                                <button class="btn btn-primary">#{bundle.delivered}</button>
+                                <button class="btn btn-primary" ng-click="processSent(order)">#{bundle.sent}</button>
                                 <button class="btn btn-warning">#{bundle.lastItem}</button>
                                 <button class="btn btn-danger">#{bundle.outOfStock}</button>
                             </td>

@@ -2,11 +2,13 @@ package de.silpion.sommerfest.rest;
 
 import de.silpion.sommerfest.ejb.OrderBean;
 import de.silpion.sommerfest.model.Order;
+import de.silpion.sommerfest.model.ProcessState;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.ApplicationScoped;
 import javax.ws.rs.*;
-import java.util.*;
+import javax.ws.rs.core.Response;
+import java.util.List;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
@@ -18,16 +20,16 @@ public class OrderService {
     private OrderBean orderBean;
 
     @GET
-    @Produces(APPLICATION_JSON)
-    public List<Order> query() {
-        return orderBean.findAll();
-    }
-
-    @GET
     @Path("{target}")
     @Produces(APPLICATION_JSON)
     public List<Order> query(@PathParam("target") String target) {
         return orderBean.findByTarget(target);
+    }
+
+    @GET
+    @Produces(APPLICATION_JSON)
+    public List<Order> query(@QueryParam("state") ProcessState state) {
+        return orderBean.findByState(state);
     }
 
     @POST
@@ -37,11 +39,23 @@ public class OrderService {
         return orderBean.save(order);
     }
 
+    @PUT
+    @Consumes(APPLICATION_JSON)
+    @Produces(APPLICATION_JSON)
+    public Order update(Order order) {
+        return orderBean.update(order);
+    }
+
     @DELETE
     @Path("{orderId}")
     @Produces(APPLICATION_JSON)
-    public Order delete(@PathParam("orderId") long orderId) {
-        return orderBean.deleteById(orderId);
+    public Response delete(@PathParam("orderId") long orderId) {
+        try {
+            orderBean.deleteById(orderId);
+            return Response.ok().build();
+        } catch (RuntimeException e) {
+            return Response.notModified().build();
+        }
     }
 
 }

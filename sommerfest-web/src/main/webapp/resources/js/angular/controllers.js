@@ -45,7 +45,18 @@ CocktailbarController.$inject = ['$scope', 'Product', 'Order'];
 
 
 function RampeController($scope, Order) {
-    $scope.orders = Order.query();
+    function fetchOrders() {
+        $scope.orders = Order.query({state: 'ORDERED'});
+    }
+
+    fetchOrders();
+
+    $scope.processSent = function (order) {
+        order.state = 'SENT';
+        order.$update(function () {
+            fetchOrders();
+        });
+    }
 }
 RampeController.$inject = ['$scope', 'Order'];
 
@@ -57,6 +68,8 @@ function ProductManagementController($scope, Product) {
     $scope.delete = function (product) {
         Product.delete({productId: product.id}, function () {
             $scope.products = Product.query();
+        }, function (e) {
+            console.log("Error: %o", e);
         });
     };
 

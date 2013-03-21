@@ -9,6 +9,7 @@ import java.io.Serializable;
 @Entity
 @NamedQuery(name = "Product.findAll", query = "SELECT p FROM Product p")
 public class Product implements Serializable {
+
     @Id
     @GeneratedValue
     private Long id;

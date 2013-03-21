@@ -7,5 +7,6 @@ angular.module('sommerfestServices', ['ngResource'])
     })
     .factory('Order', function ($resource) {
         return $resource(java.contextPath + "/rest/orders/:target", {}, {
+            update: {method: 'PUT'}
         })
     });

@@ -1,6 +1,7 @@
 package de.silpion.sommerfest.ejb;
 
 import de.silpion.sommerfest.model.Order;
+import de.silpion.sommerfest.model.ProcessState;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -35,5 +36,15 @@ public class OrderBean {
     public Order save(Order order) {
         em.persist(order);
         return order;
+    }
+
+    public List<Order> findByState(ProcessState status) {
+        return em.createNamedQuery("Order.findByStatus", Order.class)
+                .setParameter("status", status)
+                .getResultList();
+    }
+
+    public Order update(Order order) {
+        return em.merge(order);
     }
 }
