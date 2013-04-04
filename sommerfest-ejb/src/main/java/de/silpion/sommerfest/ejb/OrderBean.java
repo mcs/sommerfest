@@ -18,6 +18,7 @@ public class OrderBean {
         return em
                 .createNamedQuery("Order.findByTarget", Order.class)
                 .setParameter("target", target)
+                .setParameter("notState", ProcessState.RECEIVED)
                 .getResultList();
     }
 

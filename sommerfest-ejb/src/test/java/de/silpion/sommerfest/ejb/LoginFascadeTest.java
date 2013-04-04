@@ -1,6 +1,7 @@
 package de.silpion.sommerfest.ejb;
 
 import de.silpion.sommerfest.model.User;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -20,6 +21,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
+@Ignore
 public class LoginFascadeTest {
 
 //    @Mock

@@ -9,7 +9,7 @@ import java.util.Date;
 @Table(name = "ordering")
 @NamedQueries({
         @NamedQuery(name = "Order.findAll", query = "SELECT o FROM Order o"),
-        @NamedQuery(name = "Order.findByTarget", query = "SELECT o FROM Order o WHERE o.target = :target"),
+        @NamedQuery(name = "Order.findByTarget", query = "SELECT o FROM Order o WHERE o.target = :target AND o.state <> :notState"),
         @NamedQuery(name = "Order.findByStatus", query = "SELECT o FROM Order o WHERE o.state = :status")
 })
 public class Order implements Serializable {

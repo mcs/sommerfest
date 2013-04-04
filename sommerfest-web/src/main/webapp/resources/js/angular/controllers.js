@@ -22,7 +22,7 @@ function CocktailbarController($scope, Product, Order) {
         // create new order based on the product
         var order = {
             product: angular.copy(product),
-            amount: "" + product.amount,
+            amount: product.amount,
             target: target
         };
         // products don't have an amount, so delete it
@@ -37,6 +37,13 @@ function CocktailbarController($scope, Product, Order) {
 
     $scope.storno = function (order) {
         Order.delete({target: order.id}, function () {
+            $scope.orders = Order.query({target: target});
+        });
+    }
+
+    $scope.accept = function (order) {
+        order.state = 'RECEIVED';
+        order.$update(function () {
             $scope.orders = Order.query({target: target});
         });
     }
@@ -59,6 +66,23 @@ function RampeController($scope, Order) {
     }
 }
 RampeController.$inject = ['$scope', 'Order'];
+
+
+function LogistikController($scope, Order) {
+    function fetchOrders() {
+        $scope.orders = Order.query({state: 'SENT'});
+    }
+
+    fetchOrders();
+
+    $scope.processDelivered = function (order) {
+        order.state = 'DELIVERED';
+        order.$update(function () {
+            fetchOrders();
+        });
+    }
+}
+LogistikController.$inject = ['$scope', 'Order'];
 
 
 function ProductManagementController($scope, Product) {

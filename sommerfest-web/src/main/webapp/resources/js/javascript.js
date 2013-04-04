@@ -7,3 +7,9 @@ function log() {
         console.log.apply(console, args);
     }
 }
+
+var bundle = {
+    'ORDERED': 'bestellt',
+    'SENT': 'unterwegs',
+    'DELIVERED': 'zugestellt'
+};

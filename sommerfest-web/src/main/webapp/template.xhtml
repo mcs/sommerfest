@@ -28,9 +28,14 @@
                             <i class="icon-pencil"/> #{bundle.rampe}
                         </h:link>
                     </li>
+                    <li class="${request.requestURI.contains('logistik.xhtml') ? 'active' : ''}">
+                        <h:link outcome="/logistik.xhtml">
+                            <i class="icon-calendar"/> #{bundle.logistik}
+                        </h:link>
+                    </li>
                     <li class="${request.requestURI.contains('admin/products.xhtml') ? 'active' : ''}">
                         <h:link outcome="/admin/products">
-                            <i class="icon-calendar"/> #{bundle.admin_products}
+                            <i class="icon-barcode"/> #{bundle.admin_products}
                         </h:link>
                     </li>
                 </ul>
@@ -44,11 +49,14 @@
         <div class="footer">
             &#169; 2013 M. K.
             <h:outputScript library="js/lib" name="angular.js"/>
+            <h:outputScript library="js/lib" name="angular-locale_de.js"/>
             <h:outputScript library="js/lib" name="angular-resource.js"/>
             <h:outputScript library="js/lib" name="jquery-1.9.1.min.js"/>
             <h:outputScript library="js/lib" name="jquery-ui-1.9.2.custom.js"/>
             <h:outputScript library="js/lib" name="bootstrap.js"/>
             <h:outputScript library="js/lib" name="underscore.js"/>
+            <h:outputScript library="js/lib" name="moment.js"/>
+            <h:outputScript library="js/lib" name="moment-locale_de.js"/>
 
             <h:outputScript library="js" name="javascript.js"/>
 

@@ -27,9 +27,10 @@
                                 {{order.amount}}
                             </td>
                             <td ng-bind="order.createdOn | date: 'mediumTime'"/>
-                            <td ng-bind="order.state"/>
+                            <td ng-bind="order.displayState()"/>
                             <td>
-                                <button class="btn btn-primary" ng-click="storno(order)">#{bundle.storno}</button>
+                                <button class="btn btn-danger" ng-click="storno(order)" ng-show="order.state == 'ORDERED'">#{bundle.storno}</button>
+                                <button class="btn btn-success" ng-click="accept(order)" ng-show="order.state == 'DELIVERED'">#{bundle.delete}</button>
                             </td>
                         </tr>
                         </tbody>

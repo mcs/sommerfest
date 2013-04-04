@@ -6,7 +6,11 @@ angular.module('sommerfestServices', ['ngResource'])
         });
     })
     .factory('Order', function ($resource) {
-        return $resource(java.contextPath + "/rest/orders/:target", {}, {
+        var order = $resource(java.contextPath + "/rest/orders/:target", {}, {
             update: {method: 'PUT'}
-        })
+        });
+        order.prototype.displayState = function () {
+            return bundle[this.state];
+        };
+        return order
     });
