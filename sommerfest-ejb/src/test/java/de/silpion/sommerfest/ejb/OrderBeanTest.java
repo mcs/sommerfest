@@ -1,6 +1,7 @@
 package de.silpion.sommerfest.ejb;
 
 import de.silpion.sommerfest.model.Order;
+import de.silpion.sommerfest.model.ProcessState;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -45,6 +46,7 @@ public class OrderBeanTest {
         TypedQuery mockTypedQuery = mock(TypedQuery.class);
         when(em.createNamedQuery("Order.findByTarget", Order.class)).thenReturn(mockTypedQuery);
         when(mockTypedQuery.setParameter("target", target)).thenReturn(mockTypedQuery);
+        when(mockTypedQuery.setParameter("notState", ProcessState.RECEIVED)).thenReturn(mockTypedQuery);
         when(mockTypedQuery.getResultList()).thenReturn(expected);
 
         List<Order> result = orderBean.findByTarget(target);
