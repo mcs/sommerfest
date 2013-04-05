@@ -43,11 +43,13 @@ public class OrderBeanTest {
     public void shouldFindByTarget() {
         List<Order> expected = new ArrayList<Order>();
         String target = "anyTarget";
-        TypedQuery mockTypedQuery = mock(TypedQuery.class);
-        when(em.createNamedQuery("Order.findByTarget", Order.class)).thenReturn(mockTypedQuery);
-        when(mockTypedQuery.setParameter("target", target)).thenReturn(mockTypedQuery);
-        when(mockTypedQuery.setParameter("notState", ProcessState.RECEIVED)).thenReturn(mockTypedQuery);
-        when(mockTypedQuery.getResultList()).thenReturn(expected);
+        TypedQuery mockTypedQuery1 = mock(TypedQuery.class);
+        TypedQuery mockTypedQuery2 = mock(TypedQuery.class);
+        TypedQuery mockTypedQuery3 = mock(TypedQuery.class);
+        when(em.createNamedQuery("Order.findByTarget", Order.class)).thenReturn(mockTypedQuery1);
+        when(mockTypedQuery1.setParameter("target", target)).thenReturn(mockTypedQuery2);
+        when(mockTypedQuery2.setParameter("notState", ProcessState.RECEIVED)).thenReturn(mockTypedQuery3);
+        when(mockTypedQuery3.getResultList()).thenReturn(expected);
 
         List<Order> result = orderBean.findByTarget(target);
 
