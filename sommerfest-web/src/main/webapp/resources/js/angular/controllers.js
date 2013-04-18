@@ -1,6 +1,6 @@
 'use strict';
 
-function CocktailbarController($scope, Product, Order) {
+sommerfestApp.controller('CocktailbarController', ['$scope', 'Product', 'Order', function ($scope, Product, Order) {
     var target = "Die Cocktailbar";
     $scope.orders = Order.query({target: target});
     $scope.products = Product.query(function () {
@@ -12,11 +12,11 @@ function CocktailbarController($scope, Product, Order) {
 
     $scope.incAmount = function (elem) {
         elem.amount += 1;
-    }
+    };
 
     $scope.decAmount = function (elem) {
         elem.amount = Math.max(1, elem.amount - 1);
-    }
+    };
 
     $scope.order = function (product) {
         // create new order based on the product
@@ -28,7 +28,7 @@ function CocktailbarController($scope, Product, Order) {
         // products don't have an amount, so delete it
         delete order.product.amount;
         // execute REST call
-        order = Order.save(order, function () {
+        Order.save(order, function () {
             $scope.orders = Order.query({target: target});
         });
         // reset "view product"'s amount to 1
@@ -39,19 +39,18 @@ function CocktailbarController($scope, Product, Order) {
         Order.delete({target: order.id}, function () {
             $scope.orders = Order.query({target: target});
         });
-    }
+    };
 
     $scope.accept = function (order) {
         order.state = 'RECEIVED';
         order.$update(function () {
             $scope.orders = Order.query({target: target});
         });
-    }
-}
-CocktailbarController.$inject = ['$scope', 'Product', 'Order'];
+    };
+}]);
 
 
-function RampeController($scope, Order) {
+sommerfestApp.controller('RampeController', ['$scope', 'Order', function ($scope, Order) {
     function fetchOrders() {
         $scope.orders = Order.query({state: 'ORDERED'});
     }
@@ -63,12 +62,11 @@ function RampeController($scope, Order) {
         order.$update(function () {
             fetchOrders();
         });
-    }
-}
-RampeController.$inject = ['$scope', 'Order'];
+    };
+}]);
 
 
-function LogistikController($scope, Order) {
+sommerfestApp.controller('LogistikController', ['$scope', 'Order', function ($scope, Order) {
     function fetchOrders() {
         $scope.orders = Order.query({state: 'SENT'});
     }
@@ -80,12 +78,11 @@ function LogistikController($scope, Order) {
         order.$update(function () {
             fetchOrders();
         });
-    }
-}
-LogistikController.$inject = ['$scope', 'Order'];
+    };
+}]);
 
 
-function ProductManagementController($scope, Product) {
+sommerfestApp.controller('ProductManagementController', ['$scope', 'Product', function ($scope, Product) {
     $scope.products = Product.query();
     $scope.newProduct = new Product();
 
@@ -102,7 +99,5 @@ function ProductManagementController($scope, Product) {
             $scope.products = Product.query();
         });
         $scope.newProduct = "";
-    }
-}
-ProductManagementController.$inject = ['$scope', 'Product'];
-
+    };
+}]);

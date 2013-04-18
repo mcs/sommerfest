@@ -9,6 +9,7 @@ angular.module('sommerfestServices', ['ngResource'])
         var order = $resource(java.contextPath + "/rest/orders/:target", {}, {
             update: {method: 'PUT'}
         });
+        //noinspection JSUnusedGlobalSymbols
         order.prototype.displayState = function () {
             return bundle[this.state];
         };

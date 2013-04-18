@@ -1,0 +1,32 @@
+<div>
+    <h2>#{bundle.admin_products}</h2>
+    Administration der Produkte
+
+    <h3>Vorhandene Produkte</h3>
+
+    <form ng-controller="ProductManagementController">
+        <fieldset>
+            <label for="newProduct">#{bundle.newProduct}:</label>
+            <input id="newProduct" type="text" ng-model="newProduct.name"/>
+            <button class="btn btn-success" ng-click="create()">#{bundle.save}</button>
+        </fieldset>
+        <fieldset>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>#{bundle.article}</th>
+                    <th>#{bundle.action}</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="product in products">
+                    <td ng-bind="product.name"></td>
+                    <td>
+                        <button class="btn btn-danger" ng-click="delete(product)">#{bundle.delete}</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </fieldset>
+    </form>
+</div>

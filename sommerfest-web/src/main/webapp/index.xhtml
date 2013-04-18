@@ -1,16 +1,68 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets">
-
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" ng-app="sommerfest">
+<h:head>
+    <!--@elvariable id="request" type="javax.servlet.http.HttpServletRequest"-->
+    <title>#{bundle.title}</title>
+    <h:outputStylesheet library="css" name="bootstrap.css"/>
+    <h:outputStylesheet library="css" name="style.css"/>
+    <script type="text/javascript">
+        var java = {
+            contextPath: "${request.contextPath}"
+        };
+    </script>
+</h:head>
 <h:body>
-    <ui:composition template="./template.xhtml">
-        <ui:define name="content">
-            <h2>#{bundle.welcome}</h2>
-            Hier erfolgt das Logistik-Management des Sommerfests.
+    <div class="container">
+        <div class="navbar">
+            <div class="navbar-inner">
+                <h:link outcome="/index" styleClass="brand">#{bundle.title}</h:link>
+                <ul class="nav">
+                    <li class="${request.requestURI.contains('cocktailbar.xhtml') ? 'active' : ''}">
+                        <a href="#/bar">
+                            <i class="icon-book"/> #{bundle.cocktailbar}
+                        </a>
+                    </li>
+                    <li class="${request.requestURI.contains('rampe.xhtml') ? 'active' : ''}">
+                        <a href="#/rampe">
+                            <i class="icon-pencil"/> #{bundle.rampe}
+                        </a>
+                    </li>
+                    <li class="${request.requestURI.contains('logistik.xhtml') ? 'active' : ''}">
+                        <a href="#/logistik">
+                            <i class="icon-calendar"/> #{bundle.logistik}
+                        </a>
+                    </li>
+                    <li class="${request.requestURI.contains('admin/products.xhtml') ? 'active' : ''}">
+                        <a href="#/produkte">
+                            <i class="icon-barcode"/> #{bundle.admin_products}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
 
-            <h3>TODO</h3>
-            Erklärung, wie man das ganze nutzt...
-        </ui:define>
-    </ui:composition>
+        <div class="content" ng-view="ng-view"></div>
+
+        <div class="footer">
+            &#169; 2013 M. K.
+            <h:outputScript library="js/lib" name="angular.js"/>
+            <h:outputScript library="js/lib" name="angular-locale_de.js"/>
+            <h:outputScript library="js/lib" name="angular-resource.js"/>
+            <h:outputScript library="js/lib" name="jquery-1.9.1.min.js"/>
+            <h:outputScript library="js/lib" name="jquery-ui-1.9.2.custom.js"/>
+            <h:outputScript library="js/lib" name="bootstrap.js"/>
+            <h:outputScript library="js/lib" name="underscore.js"/>
+            <h:outputScript library="js/lib" name="moment.js"/>
+            <h:outputScript library="js/lib" name="moment-locale_de.js"/>
+
+            <h:outputScript library="js" name="javascript.js"/>
+
+            <h:outputScript library="js/angular" name="app.js"/>
+            <h:outputScript library="js/angular" name="services.js"/>
+            <h:outputScript library="js/angular" name="controllers.js"/>
+            <h:outputScript library="js/angular" name="filters.js"/>
+            <h:outputScript library="js/angular" name="directives.js"/>
+        </div>
+    </div>
 </h:body>
 </html>

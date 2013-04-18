@@ -1,0 +1,31 @@
+<div>
+    <h2>#{bundle.logistik}</h2>
+
+    <form>
+        <fieldset>
+            <legend>Auszuliefernde Positionen</legend>
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Artikel</th>
+                    <th>Menge</th>
+                    <th>Ziel</th>
+                    <th>Bestellzeit</th>
+                    <th>Aktion</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr ng-repeat="order in orders | orderBy: 'createdOn'">
+                    <td ng-bind="order.product.name"/>
+                    <td ng-bind="order.amount"/>
+                    <td ng-bind="order.target"/>
+                    <td ng-bind="order.createdOn | date: 'mediumTime'"/>
+                    <td>
+                        <button class="btn btn-primary" ng-click="processDelivered(order)">#{bundle.delivered}</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </fieldset>
+    </form>
+</div>
