@@ -1,39 +1,41 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" ng-app="sommerfest">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:jsf="http://xmlns.jcp.org/jsf"
+      ng-app="sommerfest">
 <h:head>
     <!--@elvariable id="request" type="javax.servlet.http.HttpServletRequest"-->
     <title>#{bundle.title}</title>
     <h:outputStylesheet library="css" name="bootstrap.css"/>
     <h:outputStylesheet library="css" name="style.css"/>
     <script type="text/javascript">
-        var java = {
-            contextPath: "${request.contextPath}"
-        };
+        window.sommerfestServiceUrl = "#{conf.serviceUrl}";
     </script>
 </h:head>
 <h:body>
     <div class="container">
-        <div class="navbar">
+        <div class="navbar" ng-controller="NavigationController">
             <div class="navbar-inner">
-                <h:link outcome="/index" styleClass="brand">#{bundle.title}</h:link>
+                <a href="#/index" class="brand" ng-click="setCurrentPage('index')">#{bundle.title}</a>
                 <ul class="nav">
-                    <li class="${request.requestURI.contains('cocktailbar.xhtml') ? 'active' : ''}">
-                        <a href="#/bar">
+                    <li ng-class="{active: currentPage == 'bar'}">
+                        <a href="#/bar" ng-click="setCurrentPage('bar')">
                             <i class="icon-book"/> #{bundle.cocktailbar}
                         </a>
                     </li>
-                    <li class="${request.requestURI.contains('rampe.xhtml') ? 'active' : ''}">
-                        <a href="#/rampe">
+                    <li ng-class="{active: currentPage == 'rampe'}">
+                        <a href="#/rampe" ng-click="setCurrentPage('rampe')">
                             <i class="icon-pencil"/> #{bundle.rampe}
                         </a>
                     </li>
-                    <li class="${request.requestURI.contains('logistik.xhtml') ? 'active' : ''}">
-                        <a href="#/logistik">
+                    <li ng-class="{active: currentPage == 'logistik'}">
+                        <a href="#/logistik" ng-click="setCurrentPage('logistik')">
                             <i class="icon-calendar"/> #{bundle.logistik}
                         </a>
                     </li>
-                    <li class="${request.requestURI.contains('admin/products.xhtml') ? 'active' : ''}">
-                        <a href="#/produkte">
+                    <li ng-class="{active: currentPage == 'produkte'}">
+                        <a href="#/produkte" ng-click="setCurrentPage('produkte')">
                             <i class="icon-barcode"/> #{bundle.admin_products}
                         </a>
                     </li>
@@ -46,8 +48,9 @@
         <div class="footer">
             &#169; 2013 M. K.
             <h:outputScript library="js/lib" name="angular.js"/>
-            <h:outputScript library="js/lib" name="angular-locale_de.js"/>
             <h:outputScript library="js/lib" name="angular-resource.js"/>
+            <h:outputScript library="js/lib" name="angular-route.js"/>
+            <h:outputScript library="js/lib" name="angular-locale_de.js"/>
             <h:outputScript library="js/lib" name="jquery-1.9.1.min.js"/>
             <h:outputScript library="js/lib" name="jquery-ui-1.9.2.custom.js"/>
             <h:outputScript library="js/lib" name="bootstrap.js"/>

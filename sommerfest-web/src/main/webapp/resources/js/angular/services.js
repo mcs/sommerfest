@@ -2,12 +2,14 @@
 
 angular.module('sommerfestServices', ['ngResource'])
     .factory('Product', function ($resource) {
-        return $resource(java.contextPath + '/rest/products/:productId', {}, {
+        return $resource(sommerfestApp.serviceUrl("/products/:productId"), {}, {
         });
     })
     .factory('Order', function ($resource) {
-        var order = $resource(java.contextPath + "/rest/orders/:target", {}, {
-            update: {method: 'PUT'}
+        var order = $resource(sommerfestApp.serviceUrl("/orders/:target"), {}, {
+            update: {
+                method: 'PUT'
+            }
         });
         //noinspection JSUnusedGlobalSymbols
         order.prototype.displayState = function () {

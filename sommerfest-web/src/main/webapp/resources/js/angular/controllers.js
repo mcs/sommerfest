@@ -1,7 +1,15 @@
 'use strict';
 
+sommerfestApp.controller('NavigationController', ['$scope', function ($scope) {
+    $scope.currentPage = "index";
+    $scope.setCurrentPage = function (page) {
+        $scope.currentPage = page;
+    };
+}]);
+
 sommerfestApp.controller('CocktailbarController', ['$scope', 'Product', 'Order', function ($scope, Product, Order) {
     var target = "Die Cocktailbar";
+    $scope.currentPage = "/bar";
     $scope.orders = Order.query({target: target});
     $scope.products = Product.query(function () {
         var i;

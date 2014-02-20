@@ -2,14 +2,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
     <parent>
         <groupId>de.silpion.sommerfest</groupId>
         <artifactId>sommerfest-parent</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <modelVersion>4.0.0</modelVersion>
+
     <artifactId>sommerfest-ear</artifactId>
     <packaging>ear</packaging>
+    <name>Sommerfest EAR Module</name>
 
     <dependencies>
         <dependency>
@@ -20,6 +23,12 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
+            <artifactId>sommerfest-service</artifactId>
+            <version>${project.version}</version>
+            <type>war</type>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
             <artifactId>sommerfest-web</artifactId>
             <version>${project.version}</version>
             <type>war</type>
@@ -27,6 +36,7 @@
     </dependencies>
 
     <build>
+        <finalName>sommerfest.ear</finalName>
         <plugins>
             <plugin>
                 <artifactId>maven-ear-plugin</artifactId>
@@ -42,8 +52,13 @@
                         </ejbModule>
                         <webModule>
                             <groupId>${project.groupId}</groupId>
+                            <artifactId>sommerfest-service</artifactId>
+                            <contextRoot>/sommerfest-service</contextRoot>
+                        </webModule>
+                        <webModule>
+                            <groupId>${project.groupId}</groupId>
                             <artifactId>sommerfest-web</artifactId>
-                            <contextRoot>/sommerfest-web</contextRoot>
+                            <contextRoot>/sommerfest</contextRoot>
                         </webModule>
                     </modules>
                 </configuration>
